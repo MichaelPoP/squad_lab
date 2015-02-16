@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>page</title>
+  <link rel="stylesheet" href="/main.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+
+
+<body class="container">
+  <h2> <%= @squad["name"] %> </h2>
+
+
+  <h3> The Following Students Are in This Squad: </h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Row</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Spirit Animal</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      
+      <% @students.each do |student| %>
+        <tr>
+          <td><%= student["student_id"] %></td>
+          <td><%= student["name"] %></td> 
+          <td><%= student["age"] %></td>
+          <td><%= student["spirit_animal"]  %></td>
+          
+        </tr>
+      <% end %>
+      
+    </tbody>
+  
+  </table>  
+
+
+  <a href="/squads"> Return </a> 
+</body>
+</html>

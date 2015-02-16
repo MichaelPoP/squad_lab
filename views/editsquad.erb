@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>page</title>
+  <link rel="stylesheet" href="/main.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body class="container">
+
+  <h1> EDIT OR DELETE A SQUAD </h1>
+
+  <form action="/squads/<%= @squad["id"] %>" class="form-inline" method="POST">
+
+  <input type="hidden" name="_method" value="PUT">
+
+    <div class="form-group">
+      <label for="name"> Name </label>
+      <input type="text" name="name" class="form-control" id="squadname" value="<%= @squad["name"] %>">
+    </div>
+    <div class="form-group">
+      <label for="mascot"> Mascot </label>
+      <input type="text" name="mascot" class="form-control" id="squadmascotname" value="<%= @squad["mascot"] %>">
+    </div>
+    <button type="submit" name="edit" value="Edit" class="btn btn-default">Update Squad</button>
+
+  </form>
+
+
+
+
+
+  <form action="/squads/<%= @squad["id"] %>" class="form-inline" method="POST">
+
+  <input type="hidden" name="_method" value="DELETE">
+
+    <label for="delete"></label>
+    
+    <button type="submit" name="delete" value="Delete" class="btn btn-default">Delete Squad</button>
+
+  </form>
+  <a href="/squads/:squad_id/students/new"> Add a Student To This Squad</a>
+
+  
+</body>
+</html>

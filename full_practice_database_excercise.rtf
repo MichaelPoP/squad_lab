@@ -1,0 +1,1004 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1344\cocoasubrtf720
+{\fonttbl\f0\fnil\fcharset0 Monaco;\f1\fnil\fcharset77 ZapfDingbatsITC;}
+{\colortbl;\red255\green255\blue255;\red242\green242\blue242;\red47\green180\blue29;\red46\green174\blue187;
+\red64\green11\blue217;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs26 \cf2 \cb0 \CocoaLigature0 Last login: Thu Feb 12 14:06:10 on ttys000\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f1 \cf3 \uc0\u10140 
+\f0   \cf4 ~ \cf5  \cf2 sudo gem install pg\
+Password:\
+Fetching: pg-0.18.1.gem (100%)\
+Building native extensions.  This could take a while...\
+Successfully installed pg-0.18.1\
+invalid options: -f fivefish\
+(invalid options are ignored)\
+Parsing documentation for pg-0.18.1\
+Installing ri documentation for pg-0.18.1\
+Done installing documentation for pg after 5 seconds\
+1 gem installed\
+
+\f1 \cf3 \uc0\u10140 
+\f0   \cf4 ~ \cf5  \cf2 psql\
+psql (9.4.1)\
+Type "help" for help.\
+\
+Admin=# CREATE DATABASE random;\
+CREATE DATABASE\
+Admin=# \\c random\
+You are now connected to database "random" as user "Admin".\
+random=# CREATE TABLE\
+random-# CREATE TABLE students(id SERIAL PRIMARY KEY, name VARCHAR(50), age INTEGER);\
+ERROR:  syntax error at or near "CREATE"\
+LINE 2: CREATE TABLE students(id SERIAL PRIMARY KEY, name VARCHAR(50...\
+        ^\
+random=# CREATE TABLE                                                                                                                         CREATE TABLE students(id SERIAL PRIMARY KEY, name VARCHAR(50), age INTEGER);\
+ERROR:  syntax error at or near "CREATE"\
+LINE 2: CREATE TABLE students(id SERIAL PRIMARY KEY, name VARCHAR(50...\
+        ^\
+random=# CREATE TABLE students(id SERIAL PRIMARY KEY, name VARCHAR(50), age INTEGER);                                             \
+CREATE TABLE\
+random=# INSERT INTO students (name, age) VALUES ('Mike',24);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Bob',12);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Jimmy',16);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Susie',14);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Jake',16);\
+INSERT 0 1\
+random=# SELECT * FROM "students";\
+ id | name  | age \
+----+-------+-----\
+  1 | Mike  |  24\
+  2 | Bob   |  12\
+  3 | Jimmy |  16\
+  4 | Susie |  14\
+  5 | Jake  |  16\
+(5 rows)\
+\
+random=# SELECT name FROM students;\
+ name  \
+-------\
+ Mike\
+ Bob\
+ Jimmy\
+ Susie\
+ Jake\
+(5 rows)\
+\
+random=# SELECT age FROM students;\
+ age \
+-----\
+  24\
+  12\
+  16\
+  14\
+  16\
+(5 rows)\
+\
+random=# SELECT name,age FROM students;\
+ name  | age \
+-------+-----\
+ Mike  |  24\
+ Bob   |  12\
+ Jimmy |  16\
+ Susie |  14\
+ Jake  |  16\
+(5 rows)\
+\
+random=# UPDATE students SET name='Tom' WHERE name='Elie';\
+UPDATE 0\
+random=# SELECT name,age FROM students;\
+ name  | age \
+-------+-----\
+ Mike  |  24\
+ Bob   |  12\
+ Jimmy |  16\
+ Susie |  14\
+ Jake  |  16\
+(5 rows)\
+\
+random=# UPDATE students SET name='Tom' WHERE name='Bob';\
+UPDATE 1\
+random=# SELECT name,age FROM students;\
+ name  | age \
+-------+-----\
+ Mike  |  24\
+ Jimmy |  16\
+ Susie |  14\
+ Jake  |  16\
+ Tom   |  12\
+(5 rows)\
+\
+random=# SELECT * FROM students ORDER BY id DESC;\
+ id | name  | age \
+----+-------+-----\
+  5 | Jake  |  16\
+  4 | Susie |  14\
+  3 | Jimmy |  16\
+  2 | Tom   |  12\
+  1 | Mike  |  24\
+(5 rows)\
+\
+random=# DELETE FROM students WHERE id=2;\
+DELETE 1\
+random=# SELECT * FROM students ORDER BY id DESC;\
+ id | name  | age \
+----+-------+-----\
+  5 | Jake  |  16\
+  4 | Susie |  14\
+  3 | Jimmy |  16\
+  1 | Mike  |  24\
+(4 rows)\
+\
+random=# DELETE FROM students WHERE id=4;\
+DELETE 1\
+random=# SELECT * FROM students ORDER BY id DESC;\
+ id | name  | age \
+----+-------+-----\
+  5 | Jake  |  16\
+  3 | Jimmy |  16\
+  1 | Mike  |  24\
+(3 rows)\
+\
+random=# INSERT INTO students (name, age) VALUES ('Pete', 9);\
+INSERT 0 1\
+random=# SELECT * FROM students;\
+ id | name  | age \
+----+-------+-----\
+  1 | Mike  |  24\
+  3 | Jimmy |  16\
+  5 | Jake  |  16\
+  6 | Pete  |   9\
+(4 rows)\
+\
+random=# UPDATE students SET name='Peter' WHERE name='Pete';\
+UPDATE 1\
+random=# SELECT * FROM students;\
+ id | name  | age \
+----+-------+-----\
+  1 | Mike  |  24\
+  3 | Jimmy |  16\
+  5 | Jake  |  16\
+  6 | Peter |   9\
+(4 rows)\
+\
+random=# SELECT * FROM students WHERE name LIKE '%e';\
+ id | name | age \
+----+------+-----\
+  1 | Mike |  24\
+  5 | Jake |  16\
+(2 rows)\
+\
+random=# SELECT * FROM students WHERE name LIKE 'J%';\
+ id | name  | age \
+----+-------+-----\
+  3 | Jimmy |  16\
+  5 | Jake  |  16\
+(2 rows)\
+\
+random=# SELECT * FROM students WHERE name LIKE '%m%k%';\
+ id | name | age \
+----+------+-----\
+(0 rows)\
+\
+random=# random=# SELECT * FROM students WHERE name LIKE '%m%';\
+ id | name  | age \
+----+-------+-----\
+  3 | Jimmy |  16\
+(1 row)\
+\
+random=# SELECT * FROM students WHERE name LIKE '%k%';\
+ id | name | age \
+----+------+-----\
+  1 | Mike |  24\
+  5 | Jake |  16\
+(2 rows)\
+\
+random=# SELECT * FROM students ORDER BY age ASC;\
+ id | name  | age \
+----+-------+-----\
+  6 | Peter |   9\
+  3 | Jimmy |  16\
+  5 | Jake  |  16\
+  1 | Mike  |  24\
+(4 rows)\
+\
+random=# SELECT * FROM students ORDER BY age DESC;\
+ id | name  | age \
+----+-------+-----\
+  1 | Mike  |  24\
+  3 | Jimmy |  16\
+  5 | Jake  |  16\
+  6 | Peter |   9\
+(4 rows)\
+\
+random=# SELECT * FROM students WHERE name='Mike' OR name='Jake';\
+ id | name | age \
+----+------+-----\
+  1 | Mike |  24\
+  5 | Jake |  16\
+(2 rows)\
+\
+random=# INSERT INTO students (name, age) VALUES ('Josh',22);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Ife',26);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Jenni',35);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Christian',47);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Calvin',30);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Nick',22);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Colin',26);\
+INSERT 0 1\
+random=# SELECT * FROM students;\
+ id |   name    | age \
+----+-----------+-----\
+  1 | Mike      |  24\
+  3 | Jimmy     |  16\
+  5 | Jake      |  16\
+  6 | Peter     |   9\
+  7 | Josh      |  22\
+  8 | Ife       |  26\
+  9 | Jenni     |  35\
+ 10 | Christian |  47\
+ 11 | Calvin    |  30\
+ 12 | Nick      |  22\
+ 13 | Colin     |  26\
+(11 rows)\
+\
+random=# SELECT * FROM students LIMIT 3;\
+ id | name  | age \
+----+-------+-----\
+  1 | Mike  |  24\
+  3 | Jimmy |  16\
+  5 | Jake  |  16\
+(3 rows)\
+\
+random=# SELECT * FROM students LIMIT 3 OFFSET 1;\
+ id | name  | age \
+----+-------+-----\
+  3 | Jimmy |  16\
+  5 | Jake  |  16\
+  6 | Peter |   9\
+(3 rows)\
+\
+random=# SELECT * FROM students LIMIT 3 OFFSET 2;\
+ id | name  | age \
+----+-------+-----\
+  5 | Jake  |  16\
+  6 | Peter |   9\
+  7 | Josh  |  22\
+(3 rows)\
+\
+random=# SELECT * FROM students LIMIT 3 OFFSET 3;\
+ id | name  | age \
+----+-------+-----\
+  6 | Peter |   9\
+  7 | Josh  |  22\
+  8 | Ife   |  26\
+(3 rows)\
+\
+random=# SELECT * FROM students LIMIT 3 OFFSET 4;\
+ id | name  | age \
+----+-------+-----\
+  7 | Josh  |  22\
+  8 | Ife   |  26\
+  9 | Jenni |  35\
+(3 rows)\
+\
+random=# SELECT * FROM students LIMIT 4 OFFSET 6;\
+ id |   name    | age \
+----+-----------+-----\
+  9 | Jenni     |  35\
+ 10 | Christian |  47\
+ 11 | Calvin    |  30\
+ 12 | Nick      |  22\
+(4 rows)\
+\
+random=# INSERT INTO students (name, age) VALUES ('leo',35);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('brent',28);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Cynthia',25);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('christine',29);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('Mike', 46);\
+INSERT 0 1\
+random=# INSERT INTO students (name, age) VALUES ('George', 33);\
+INSERT 0 1\
+random=# SELECT * FROM students;\
+random=# SELECT * FROM students;\
+random=# SELECT MAX(age) FROM students;\
+ max \
+-----\
+  47\
+(1 row)\
+\
+random=# SELECT MIN(age) FROM students;\
+ min \
+-----\
+   9\
+(1 row)\
+\
+random=# \\c\
+You are now connected to database "random" as user "Admin".\
+random=# CREATE DATABASE learnsql;\
+CREATE DATABASE\
+random=# \\c learnsql;\
+You are now connected to database "learnsql" as user "Admin".\
+learnsql=# \\dt\
+No relations found.\
+learnsql=# \\c random;\
+You are now connected to database "random" as user "Admin".\
+random=# \\dt\
+         List of relations\
+ Schema |   Name   | Type  | Owner \
+--------+----------+-------+-------\
+ public | students | table | Admin\
+(1 row)\
+\
+random=# \\c learnsql \
+You are now connected to database "learnsql" as user "Admin".\
+learnsql=# CREATE TABLE authors (id SERIAL PRIMARY KEY, name VARCHAR(100) NOT NULL);\
+CREATE TABLE\
+learnsql=# CREATE TABLE books (id SERIAL PRIMARY KEY, title VARCHAR(100) NOT NULL);\
+CREATE TABLE\
+learnsql=# \\dt\
+        List of relations\
+ Schema |  Name   | Type  | Owner \
+--------+---------+-------+-------\
+ public | authors | table | Admin\
+ public | books   | table | Admin\
+(2 rows)\
+\
+learnsql=# INSERT INTO authors (name) VALUES ('Ayn Rand');\
+INSERT 0 1\
+learnsql=# INSERT INTO authors (name) VALUES ('Terence Mckenna');\
+INSERT 0 1\
+learnsql=# INSERT INTO authors (name) VALUES ('George Orwell');\
+INSERT 0 1\
+learnsql=# INSERT INTO authors (name) VALUES ('Mark Booth');\
+INSERT 0 1\
+learnsql=# INSERT INTO authors (name) VALUES ('John Doe');\
+INSERT 0 1\
+learnsql=# ALTER TABLE books ADD COLUMN author_id INTEGER;\
+ALTER TABLE\
+learnsql=# \\dt\
+        List of relations\
+ Schema |  Name   | Type  | Owner \
+--------+---------+-------+-------\
+ public | authors | table | Admin\
+ public | books   | table | Admin\
+(2 rows)\
+\
+learnsql=# \\d+ books\
+                                                      Table "public.books"\
+  Column   |          Type          |                     Modifiers                      | Storage  | Stats target | Description \
+-----------+------------------------+----------------------------------------------------+----------+--------------+-------------\
+ id        | integer                | not null default nextval('books_id_seq'::regclass) | plain    |              | \
+ title     | character varying(100) | not null                                           | extended |              | \
+ author_id | integer                |                                                    | plain    |              | \
+Indexes:\
+    "books_pkey" PRIMARY KEY, btree (id)\
+\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('Great Gatsby',2);\
+INSERT 0 1\
+learnsql=# SELECT * FROM books;\
+ id |    title     | author_id \
+----+--------------+-----------\
+  1 | Great Gatsby |         2\
+(1 row)\
+\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('1984',1);\
+INSERT 0 1\
+learnsql=# SELECT * FROM authors;\
+ id |      name       \
+----+-----------------\
+  1 | Ayn Rand\
+  2 | Terence Mckenna\
+  3 | George Orwell\
+  4 | Mark Booth\
+  5 | John Doe\
+(5 rows)\
+\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('1984',3);\
+INSERT 0 1\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('Animal Farm',3);\
+INSERT 0 1\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('The Fountainhead',1)\
+learnsql-# ;\
+INSERT 0 1\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('Atlas Shrugged',1);\
+INSERT 0 1\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('The Archaic Revival',2);\
+INSERT 0 1\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('The Secret History of the World',4);\
+INSERT 0 1\
+learnsql=# SELECT * FROM authors JOIN books ON authors.id = books.author_id;\
+ id |      name       | id |              title              | author_id \
+----+-----------------+----+---------------------------------+-----------\
+  2 | Terence Mckenna |  1 | Great Gatsby                    |         2\
+  1 | Ayn Rand        |  2 | 1984                            |         1\
+  3 | George Orwell   |  3 | 1984                            |         3\
+  3 | George Orwell   |  4 | Animal Farm                     |         3\
+  1 | Ayn Rand        |  5 | The Fountainhead                |         1\
+  1 | Ayn Rand        |  6 | Atlas Shrugged                  |         1\
+  2 | Terence Mckenna |  7 | The Archaic Revival             |         2\
+  4 | Mark Booth      |  8 | The Secret History of the World |         4\
+(8 rows)\
+\
+learnsql=# INSERT INTO "books" (title, author_id) VALUES ('Food of the Gods',2);\
+INSERT 0 1\
+learnsql=# SELECT * FROM authors JOIN books ON authors.id = books.author_id;\
+ id |      name       | id |              title              | author_id \
+----+-----------------+----+---------------------------------+-----------\
+  2 | Terence Mckenna |  1 | Great Gatsby                    |         2\
+  1 | Ayn Rand        |  2 | 1984                            |         1\
+  3 | George Orwell   |  3 | 1984                            |         3\
+  3 | George Orwell   |  4 | Animal Farm                     |         3\
+  1 | Ayn Rand        |  5 | The Fountainhead                |         1\
+  1 | Ayn Rand        |  6 | Atlas Shrugged                  |         1\
+  2 | Terence Mckenna |  7 | The Archaic Revival             |         2\
+  4 | Mark Booth      |  8 | The Secret History of the World |         4\
+  2 | Terence Mckenna |  9 | Food of the Gods                |         2\
+(9 rows)\
+\
+learnsql=# UPDATE books SET author_id=5 WHERE author_id=2\
+learnsql-# ;\
+UPDATE 3\
+learnsql=# SELECT * FROM authors JOIN books ON authors.id = books.author_id;                                                        id |     name      | id |              title              | author_id \
+----+---------------+----+---------------------------------+-----------\
+  1 | Ayn Rand      |  2 | 1984                            |         1\
+  3 | George Orwell |  3 | 1984                            |         3\
+  3 | George Orwell |  4 | Animal Farm                     |         3\
+  1 | Ayn Rand      |  5 | The Fountainhead                |         1\
+  1 | Ayn Rand      |  6 | Atlas Shrugged                  |         1\
+  4 | Mark Booth    |  8 | The Secret History of the World |         4\
+  5 | John Doe      |  1 | Great Gatsby                    |         5\
+  5 | John Doe      |  7 | The Archaic Revival             |         5\
+  5 | John Doe      |  9 | Food of the Gods                |         5\
+(9 rows)\
+\
+learnsql=# ALTER books ADD CONSTRAINT author_fk FOREIGN KEY (author_id) REFERENCES authors (id) ON DELETE NO ACTION;\
+ERROR:  syntax error at or near "books"\
+LINE 1: ALTER books ADD CONSTRAINT author_fk FOREIGN KEY (author_id)...\
+              ^\
+learnsql=# ALTER TABLE books ADD CONSTRAINT author_fk FOREIGN KEY (author_id) REFERENCES authors (id) ON DELETE NO ACTION;\
+ALTER TABLE\
+learnsql=# DELETE FROM authors;\
+ERROR:  update or delete on table "authors" violates foreign key constraint "author_fk" on table "books"\
+DETAIL:  Key (id)=(1) is still referenced from table "books".\
+learnsql=# DELETE FROM books WHERE author_id=1;\
+DELETE 3\
+learnsql=# \\d+ books\
+                                                      Table "public.books"\
+  Column   |          Type          |                     Modifiers                      | Storage  | Stats target | Description \
+-----------+------------------------+----------------------------------------------------+----------+--------------+-------------\
+ id        | integer                | not null default nextval('books_id_seq'::regclass) | plain    |              | \
+ title     | character varying(100) | not null                                           | extended |              | \
+ author_id | integer                |                                                    | plain    |              | \
+Indexes:\
+    "books_pkey" PRIMARY KEY, btree (id)\
+Foreign-key constraints:\
+    "author_fk" FOREIGN KEY (author_id) REFERENCES authors(id)\
+\
+learnsql=# \\d+ authors\
+                                                     Table "public.authors"\
+ Column |          Type          |                      Modifiers                       | Storage  | Stats target | Description \
+--------+------------------------+------------------------------------------------------+----------+--------------+-------------\
+ id     | integer                | not null default nextval('authors_id_seq'::regclass) | plain    |              | \
+ name   | character varying(100) | not null                                             | extended |              | \
+Indexes:\
+    "authors_pkey" PRIMARY KEY, btree (id)\
+Referenced by:\
+    TABLE "books" CONSTRAINT "author_fk" FOREIGN KEY (author_id) REFERENCES authors(id)\
+\
+learnsql=# \\dt\
+        List of relations\
+ Schema |  Name   | Type  | Owner \
+--------+---------+-------+-------\
+ public | authors | table | Admin\
+ public | books   | table | Admin\
+(2 rows)\
+\
+learnsql=# \\c \
+You are now connected to database "learnsql" as user "Admin".\
+learnsql=# CREATE DATABASE apartmentlab\
+learnsql-# ;\
+CREATE DATABASE\
+learnsql=# \\c apartmentlab \
+You are now connected to database "apartmentlab" as user "Admin".\
+apartmentlab=# CREATE TABLE owner(owner_id SERIAL PRIMARY KEY, name VARCHAR(50), age INTEGER);\
+CREATE TABLE\
+apartmentlab=# ALTER TABLE owner RENAME owner_id TO id;\
+ALTER TABLE\
+apartmentlab=# \\dt\
+       List of relations\
+ Schema | Name  | Type  | Owner \
+--------+-------+-------+-------\
+ public | owner | table | Admin\
+(1 row)\
+\
+apartmentlab=# \\t\
+Tuples only is on.\
+apartmentlab=# \\t\
+Tuples only is off.\
+apartmentlab=# SELECT * FROM owner;\
+ id | name | age \
+----+------+-----\
+(0 rows)\
+\
+apartmentlab=# CREATE TABLE properties(id SERIAL PRIMARY KEY, name VARCHAR(50), age INTEGER, owner_id INTEGER) NOT NULL);\
+ERROR:  syntax error at or near "NOT"\
+LINE 1: ... name VARCHAR(50), age INTEGER, owner_id INTEGER) NOT NULL);\
+                                                             ^\
+apartmentlab=# apartmentlab=# CREATE TABLE properties(id SERIAL PRIMARY KEY, name VARCHAR(50), age INTEGER);\
+CREATE TABLE\
+apartmentlab=# ALTER TABLE properties ADD COLUMN author_id INTEGER NOT NULL;\
+ALTER TABLE\
+apartmentlab=# SELECT * FROM properties;\
+ id | name | age | author_id \
+----+------+-----+-----------\
+(0 rows)\
+\
+apartmentlab=# ALTER TABLE owner RENAME TO owners\
+apartmentlab-# ;\
+ALTER TABLE\
+apartmentlab=# SELECT * FROM properties;                                                                                                                 id | name | age | author_id \
+----+------+-----+-----------\
+(0 rows)\
+\
+apartmentlab=# SELECT * FROM owner;\
+ERROR:  relation "owner" does not exist\
+LINE 1: SELECT * FROM owner;\
+                      ^\
+apartmentlab=# SELECT * FROM owners;\
+ id | name | age \
+----+------+-----\
+(0 rows)\
+\
+apartmentlab=#  ALTER TABLE properties ADD CONSTRAINT owners_fk FOREIGN KEY (owners_id) REFERENCES owners (id) ON DELETE NO ACTION;\
+ERROR:  column "owners_id" referenced in foreign key constraint does not exist\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Adam Alligator',34);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM owners;                                                                               id |      name      | age \
+----+----------------+-----\
+  1 | Adam Alligator |  34\
+(1 row)\
+\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Bobby Bobcat',23);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Christy Crocodile',50);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Doug Donkey',45);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Elie Elephant',28);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Fred Ferret',20);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('George Giraffe',25);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Henry Hippo',65);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Ian Iguana',36);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Josh Jackrabbit',40);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Kendra Kangaroo',21);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Lisa Lemming',98);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Mary Manatee',76);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Ned Newt',59);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Opi Octopus',38);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Pat Pelican',12);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Pat Pelican',12);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Quin Quail' 24);\
+ERROR:  syntax error at or near "24"\
+LINE 1: INSERT INTO owners (name, age) VALUES ('Quin Quail' 24);\
+                                                            ^\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Quin Quail',24);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Roger Rabbit',33);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Steve Salamander',44);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO owners (name, age) VALUES ('Tina Tiger',55);\
+INSERT 0 1\
+apartmentlab=#  INSERT INTO properties (name, units, owner_id) VALUES ('Alligator Lounge and Bar',3,1);\
+ERROR:  column "units" of relation "properties" does not exist\
+LINE 1: INSERT INTO properties (name, units, owner_id) VALUES ('Alli...\
+                                      ^\
+apartmentlab=#  INSERT INTO properties (name, units, owner_id) VALUES ('Alligator Lounge and Bar', 3, 1);\
+ERROR:  column "units" of relation "properties" does not exist\
+LINE 1: INSERT INTO properties (name, units, owner_id) VALUES ('Alli...\
+                                      ^\
+apartmentlab=# ALTER TABLE ONLY properties * RENAME COLUMN age TO units;\
+ERROR:  syntax error at or near "*"\
+LINE 1: ALTER TABLE ONLY properties * RENAME COLUMN age TO units;\
+                                    ^\
+apartmentlab=# ALTER TABLE ONLY properties RENAME COLUMN age TO units;\
+ALTER TABLE\
+apartmentlab=#  INSERT INTO properties (name, units, owner_id) VALUES ('Alligator Lounge and Bar', 3, 1);\
+ERROR:  column "owner_id" of relation "properties" does not exist\
+LINE 1: INSERT INTO properties (name, units, owner_id) VALUES ('Alli...\
+                                             ^\
+apartmentlab=# SELECT * FROM properties;\
+ id | name | units | author_id \
+----+------+-------+-----------\
+(0 rows)\
+\
+apartmentlab=# ALTER TABLE ONLY properties * RENAME COLUMN author_id TO owner_id;\
+ERROR:  syntax error at or near "*"\
+LINE 1: ALTER TABLE ONLY properties * RENAME COLUMN author_id TO own...\
+                                    ^\
+apartmentlab=# ALTER TABLE ONLY properties RENAME COLUMN author_id TO owner_id;\
+ALTER TABLE\
+apartmentlab=# SELECT * FROM properties;\
+ id | name | units | owner_id \
+----+------+-------+----------\
+(0 rows)\
+\
+apartmentlab=#  INSERT INTO properties (name, units, owner_id) VALUES ('Alligator Lounge and Bar', 3, 1);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM properties;\
+ id |           name           | units | owner_id \
+----+--------------------------+-------+----------\
+  1 | Alligator Lounge and Bar |     3 |        1\
+(1 row)\
+\
+apartmentlab=#  INSERT INTO properties (name, units, owner_id) VALUES ('Bobcat club', 2, 2);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=#  INSERT INTO properties (name, units, owner_id) VALUES ('Crocodile House', 4, 3 );\
+INSERT 0 1\
+apartmentlab=# apartmentlab=#  INSERT INTO properties (name, units, owner_id) VALUES ('Donkey Dump', apartmentlab=#  INSERT INTO properties (name, units, owner_id) VALUES (''Donkey Dump', 2, 4);\
+apartmentlab'# \
+apartmentlab'# ;\
+apartmentlab'# ;\
+apartmentlab'# q\
+apartmentlab'# SELECT * FROM properties;\
+apartmentlab'# ;\
+apartmentlab'# ';\
+apartmentlab(# ;;\
+apartmentlab(# ();\
+apartmentlab(# (\
+apartmentlab(# )\
+apartmentlab(# )))\
+apartmentlab-# ;\
+ERROR:  syntax error at or near "Donkey"\
+LINE 1: ...INTO properties (name, units, owner_id) VALUES (''Donkey Dum...\
+                                                             ^\
+apartmentlab=# SELECT * FROM properties;\
+ id |           name           | units | owner_id \
+----+--------------------------+-------+----------\
+  1 | Alligator Lounge and Bar |     3 |        1\
+  2 | Bobcat club              |     2 |        2\
+  3 | Crocodile House          |     4 |        3\
+(3 rows)\
+\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Crocodile House', 4, 3 );                          \
+INSERT 0 1\
+apartmentlab=# SELECT * FROM properties;\
+ id |           name           | units | owner_id \
+----+--------------------------+-------+----------\
+  1 | Alligator Lounge and Bar |     3 |        1\
+  2 | Bobcat club              |     2 |        2\
+  3 | Crocodile House          |     4 |        3\
+  4 | Crocodile House          |     4 |        3\
+(4 rows)\
+\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('\
+apartmentlab'# );\
+apartmentlab'# ');\
+ERROR:  INSERT has more target columns than expressions\
+LINE 1: INSERT INTO properties (name, units, owner_id) VALUES ('\
+                                      ^\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Donkey Dump', 3, 4);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM properties;                                                                                    id |           name           | units | owner_id \
+----+--------------------------+-------+----------\
+  1 | Alligator Lounge and Bar |     3 |        1\
+  2 | Bobcat club              |     2 |        2\
+  3 | Crocodile House          |     4 |        3\
+  4 | Crocodile House          |     4 |        3\
+  5 | Donkey Dump              |     3 |        4\
+(5 rows)\
+\
+apartmentlab=# DELETE FROM ONLY properties WHERE name=Crocodile House;\
+ERROR:  syntax error at or near "House"\
+LINE 1: DELETE FROM ONLY properties WHERE name=Crocodile House;\
+                                                         ^\
+apartmentlab=# SELECT * FROM properties;\
+ id |           name           | units | owner_id \
+----+--------------------------+-------+----------\
+  1 | Alligator Lounge and Bar |     3 |        1\
+  2 | Bobcat club              |     2 |        2\
+  3 | Crocodile House          |     4 |        3\
+  4 | Crocodile House          |     4 |        3\
+  5 | Donkey Dump              |     3 |        4\
+(5 rows)\
+\
+apartmentlab=# DELETE FROM ONLY properties WHERE id=4;\
+DELETE 1\
+apartmentlab=# SELECT * FROM properties;\
+ id |           name           | units | owner_id \
+----+--------------------------+-------+----------\
+  1 | Alligator Lounge and Bar |     3 |        1\
+  2 | Bobcat club              |     2 |        2\
+  3 | Crocodile House          |     4 |        3\
+  5 | Donkey Dump              |     3 |        4\
+(4 rows)\
+\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Elie's Elephant Bar', 3, 5);\
+apartmentlab'# ');\
+ERROR:  syntax error at or near "s"\
+LINE 1: ... properties (name, units, owner_id) VALUES ('Elie's Elephant...\
+                                                             ^\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Elies Elephant Bar', 3, 5);                        \
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Ferie Apartments', 16, 6);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Giant Gardens', 10, 7);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Happy Hippo Pools', 9, 8);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM properties;                                                                                    id |           name           | units | owner_id \
+----+--------------------------+-------+----------\
+  1 | Alligator Lounge and Bar |     3 |        1\
+  2 | Bobcat club              |     2 |        2\
+  3 | Crocodile House          |     4 |        3\
+  5 | Donkey Dump              |     3 |        4\
+  6 | Elies Elephant Bar       |     3 |        5\
+  7 | Ferie Apartments         |    16 |        6\
+  8 | Giant Gardens            |    10 |        7\
+  9 | Happy Hippo Pools        |     9 |        8\
+(8 rows)\
+\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Iguana Motel', 22, 9);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Joshs Quick Stop', 3, 10);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Killamajaro Apartments', 30, 11);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Lottery Shop', 2, 12);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Merry Apartments', 14, 13);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('No Good Nightclub', 3, 14);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Octipy Hallows', 44, 15);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Pelican Falls Motel', 25, 16);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Pelican Falls Motel', 25, 16);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Pelican Falls Motel', 25, 17);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Quail Run Apartments', 40, 18);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Rabbit Hop Hotel', 19, 19);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Steves Slimy Store and Motel', 4, 20);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Tiger Tower', 85, 21);\
+INSERT 0 1\
+apartmentlab=# \\dt\
+          List of relations\
+ Schema |    Name    | Type  | Owner \
+--------+------------+-------+-------\
+ public | owners     | table | Admin\
+ public | properties | table | Admin\
+(2 rows)\
+\
+apartmentlab=# \\dt *.*\
+apartmentlab=#  SELECT * FROM "owners"\
+apartmentlab-# SELECT * FROM "students"\
+apartmentlab-# SELECT * FROM "owners"\
+apartmentlab-# SELECT * FROM 'owners'\
+apartmentlab-# ;\
+ERROR:  syntax error at or near "SELECT"\
+LINE 2: SELECT * FROM "students"\
+        ^\
+apartmentlab=# SELECT * FROM "owners";\
+apartmentlab=# SELECT name FROM owners;\
+apartmentlab=# SELECT name FROM owners;\
+apartmentlab=# SELECT * FROM owners ORDER BY id ASC;\
+apartmentlab=# SELECT * FROM owners name="Elie";\
+ERROR:  syntax error at or near "="\
+LINE 1: SELECT * FROM owners name="Elie";\
+                                 ^\
+apartmentlab=# SELECT * FROM owners name "Elie";\
+ERROR:  syntax error at or near ""Elie""\
+LINE 1: SELECT * FROM owners name "Elie";\
+                                  ^\
+apartmentlab=# SELECT * FROM owners name Elie;\
+ERROR:  syntax error at or near "Elie"\
+LINE 1: SELECT * FROM owners name Elie;\
+                                  ^\
+apartmentlab=# SELECT * FROM owners WHERE name= 'Elie';\
+ id | name | age \
+----+------+-----\
+(0 rows)\
+\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=# SELECT * FROM owners WHERE name= 'Elie Elephant';\
+ id |     name      | age \
+----+---------------+-----\
+  5 | Elie Elephant |  28\
+(1 row)\
+\
+apartmentlab=# SELECT * FROM owners WHERE age > 30;\
+ id |       name        | age \
+----+-------------------+-----\
+  1 | Adam Alligator    |  34\
+  3 | Christy Crocodile |  50\
+  4 | Doug Donkey       |  45\
+  8 | Henry Hippo       |  65\
+  9 | Ian Iguana        |  36\
+ 10 | Josh Jackrabbit   |  40\
+ 12 | Lisa Lemming      |  98\
+ 13 | Mary Manatee      |  76\
+ 14 | Ned Newt          |  59\
+ 15 | Opi Octopus       |  38\
+ 19 | Roger Rabbit      |  33\
+ 20 | Steve Salamander  |  44\
+ 21 | Tina Tiger        |  55\
+(13 rows)\
+\
+apartmentlab=# SELECT * FROM owners WHERE name LIKE 'E%';\
+ id |     name      | age \
+----+---------------+-----\
+  5 | Elie Elephant |  28\
+(1 row)\
+\
+apartmentlab=# INSERT INTO owners (name, age) VALUES ('John',33);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO owners (name, age) VALUES ('Jane',43);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=# UPDATE owners SET age=30 WHERE age=43;\
+UPDATE 1\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=# UPDATE owners SET name=Janet WHERE name=Jane;\
+ERROR:  column "janet" does not exist\
+LINE 1: UPDATE owners SET name=Janet WHERE name=Jane;\
+                               ^\
+apartmentlab=# UPDATE owners SET name='Janet' WHERE name='Jane';\
+UPDATE 1\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=# INSERT INTO properties (name, units) VALUES (\'91Archstone\'92, 20);\
+ERROR:  column "\'91archstone\'92" does not exist\
+LINE 1: INSERT INTO properties (name, units) VALUES (\'91Archstone\'92, 20...\
+                                                     ^\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES (\'91Archstone\'92, 20, 22);\
+ERROR:  column "\'91archstone\'92" does not exist\
+LINE 1: ...T INTO properties (name, units, owner_id) VALUES (\'91Archstone...\
+                                                             ^\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Archstone', 20, 22);\
+INSERT 0 1\
+apartmentlab=# DELETE FROM ONLY owners WHERE name=\'91Janet\'92;\
+ERROR:  column "\'91janet\'92" does not exist\
+LINE 1: DELETE FROM ONLY owners WHERE name=\'91Janet\'92;\
+                                           ^\
+apartmentlab=# DELETE FROM owners WHERE name=\'91Janet\'92;\
+ERROR:  column "\'91janet\'92" does not exist\
+LINE 1: DELETE FROM owners WHERE name=\'91Janet\'92;\
+                                      ^\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=# DELETE FROM owners WHERE name="Janet";\
+ERROR:  column "Janet" does not exist\
+LINE 1: DELETE FROM owners WHERE name="Janet";\
+                                      ^\
+apartmentlab=# DELETE FROM owners WHERE name='Janet';\
+DELETE 1\
+apartmentlab=# SELECT MAX(age) FROM owners;\
+ max \
+-----\
+  98\
+(1 row)\
+\
+apartmentlab=# SELECT * FROM owners LIMIT 3;\
+ id |       name        | age \
+----+-------------------+-----\
+  1 | Adam Alligator    |  34\
+  2 | Bobby Bobcat      |  23\
+  3 | Christy Crocodile |  50\
+(3 rows)\
+\
+apartmentlab=# ALTER TABLE properties ADD CONSTRAINT owner_fk FOREIGN KEY (owner_id) REFERENCES owner (id) ON DELETE NO ACTION;\
+ERROR:  relation "owner" does not exist\
+apartmentlab=# ALTER TABLE properties ADD CONSTRAINT owners_fk FOREIGN KEY (owner_id) REFERENCES owner (id) ON DELETE NO ACTION;\
+ERROR:  relation "owner" does not exist\
+apartmentlab=# ALTER TABLE properties ADD CONSTRAINT owner_fk FOREIGN KEY (owner_id) REFERENCES owners (id) ON DELETE NO ACTION;\
+ALTER TABLE\
+apartmentlab=# SELECT * FROM owners, properties WHERE name = name;\
+ERROR:  column reference "name" is ambiguous\
+LINE 1: SELECT * FROM owners, properties WHERE name = name;\
+                                               ^\
+apartmentlab=# SELECT * FROM owners, properties WHERE id = owner_id;\
+ERROR:  column reference "id" is ambiguous\
+LINE 1: SELECT * FROM owners, properties WHERE id = owner_id;\
+                                               ^\
+apartmentlab=# SELECT * FROM owners, properties WHERE owner_id = id;\
+ERROR:  column reference "id" is ambiguous\
+LINE 1: SELECT * FROM owners, properties WHERE owner_id = id;\
+                                                          ^\
+apartmentlab=# SELECT * FROM owners JOIN properties ON owners.id = properties.owner_id;\
+apartmentlab=# SELECT * FROM properties WHERE name NOT IN 'Archstone' NOT IN id=3 and id=5 ORDER BY name ASC;\
+ERROR:  syntax error at or near "'Archstone'"\
+LINE 1: SELECT * FROM properties WHERE name NOT IN 'Archstone' NOT I...\
+                                                   ^\
+apartmentlab=# SELECT * FROM properties WHERE name NOT IN 'Archstone' NOT IN id=3 and id=5 ORDER BY name ASC;\
+ERROR:  syntax error at or near "'Archstone'"\
+LINE 1: SELECT * FROM properties WHERE name NOT IN 'Archstone' NOT I...\
+                                                   ^\
+apartmentlab=# SELECT * FROM properties WHERE name NOT IN \'91Archstone\'92 and id NOT IN 3 or 5 ORDER BY name ASC;\
+ERROR:  syntax error at or near "\'91Archstone\'92"\
+LINE 1: SELECT * FROM properties WHERE name NOT IN \'91Archstone\'92 and i...\
+                                                   ^\
+apartmentlab=# SELECT * FROM properties WHERE name NOT IN 'Archstone' and id NOT IN 3 or 5 ORDER BY name ASC;\
+ERROR:  syntax error at or near "'Archstone'"\
+LINE 1: SELECT * FROM properties WHERE name NOT IN 'Archstone' and i...\
+                                                   ^\
+apartmentlab=# SELECT * FROM properties WHERE name NOT IN ('Archstone') and id NOT IN 3 or 5 ORDER BY name ASC;\
+ERROR:  syntax error at or near "3"\
+LINE 1: ...ies WHERE name NOT IN ('Archstone') and id NOT IN 3 or 5 ORD...\
+                                                             ^\
+apartmentlab=# SELECT * FROM properties WHERE name NOT IN ('Archstone') and id NOT IN (3) or(5) ORDER BY name ASC;\
+ERROR:  argument of OR must be type boolean, not type integer\
+LINE 1: ...RE name NOT IN ('Archstone') and id NOT IN (3) or(5) ORDER B...\
+                                                             ^\
+apartmentlab=# SELECT * FROM properties WHERE name NOT IN ('Archstone') and id NOT IN (3) and id NOT IN (5) ORDER BY name ASC;\
+apartmentlab=# SELECT count(*) FROM properties;\
+ count \
+-------\
+    23\
+(1 row)\
+\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES (\'91Bobcat Lounge', 7, 2);\
+apartmentlab'# ');\
+ERROR:  syntax error at or near "Lounge"\
+LINE 1: ...roperties (name, units, owner_id) VALUES (\'91Bobcat Lounge', 7...\
+                                                             ^\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Bobcat Lounge', 7, 2);                                             \
+INSERT 0 1\
+apartmentlab=# SELECT * FROM owners;\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Elies Playhouse', 13, 5);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Elephant Palace', 147, 5);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('RooRoo Apartments', 35, 11);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Octopussy Place', 67, 15);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Iguana Tanning Hotel', 18, 9);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Tiger Eye Casino and Hotel', 58, 21);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Newt Motel', 9, 14);\
+INSERT 0 1\
+apartmentlab=# INSERT INTO properties (name, units, owner_id) VALUES ('Pelican Nest B and B', 6, 16);\
+INSERT 0 1\
+apartmentlab=# SELECT * FROM owners JOIN properties ON owners.id = properties.owner_id;\
+apartmentlab=# ALTER TABLE properties ADD CONSTRAINT owner_fk FOREIGN KEY (owner_id) REFERENCES owners (id) ON DELETE NO ACTION;\
+ERROR:  constraint "owner_fk" for relation "properties" already exists\
+apartmentlab=# SELECT * FROM owners JOIN properties ON owners.id = properties.owner_id;\
+apartmentlab=# PSQL }
