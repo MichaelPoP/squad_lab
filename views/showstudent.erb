@@ -9,17 +9,17 @@
 </head>
 
 
-<body class="container">
+<body class="container studentback">
 
-<h2> Name: <%= @student["name"] %></h2>
-<h2> Age: <%= @student["age"]  %></h2>
-<h2> Spirit Animal: <%= @student["spirit_animal"] %></h2>
-<h2> Squad Number: <%= @student["squad_id"] %></h2>
+<h2 class="title"> Name: <%= @student["name"] %></h2>
+<h2 class="title"> Age: <%= @student["age"]  %></h2>
+<h2 class="title"> Spirit Animal: <%= @student["spirit_animal"] %></h2>
+<h2 class="title"> Squad Number: <%= @student["squad_id"] %></h2>
 
 
   <hr>
-  <a href="/students"> Return To Student List </a>
+  <a href="/students"><div class="addbutton"> Return To Student List </div></a>
   <hr> 
-  <a href="/squads"> Return To Squads</a> 
+  <a href="/squads"><div class="addbutton">Return To Squads</div></a> 
 </body>
 </html>

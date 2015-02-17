@@ -24,6 +24,7 @@ a:hover {
 td {
   font-family: helvetica;
   font-size: 17px;
+  font-weight: 600;
 }
 .addbutton {
   background: rgba(111, 111, 111, .7);
@@ -63,7 +64,18 @@ td {
   font-size: 14px;
   box-shadow:1px -1px 5px blue;
 }
+.space {
+  margin-top:12px;
+}
+.topspace {
+  margin-bottom: 60px;
+}
 
+/*--------- STUDENT PAGES ---------*/
+
+.studentback {
+  background: #8595b6;
+}
 
 
 

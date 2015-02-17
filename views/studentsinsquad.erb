@@ -9,8 +9,8 @@
 </head>
 
 
-<body class="container">
-  <h3 class="title"> The Following Students Are in This Squad: </h3>
+<body class="container studentback">
+  <h3 class="title"> The Following Students Are in This Squad:<%= @squad["name"] %> </h3>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -39,8 +39,11 @@
   
   </table>  
 
-  <a href="/squads/<%= @squad["id"] %>/students/new"> Add New Student To Squad</a>
+  <a href="/squads/<%= @squad["id"] %>/students/new"><div class="addbutton">Add New Student To Squad
+  </div></a>
   <hr>
-  <a href="/squads"> Return </a> 
+  <a href="/squads"><div class="showall">
+   Return  
+  </div></a>
 </body>
 </html>
