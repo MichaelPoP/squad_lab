@@ -1,0 +1,22 @@
+FOR SHOW
+ STUDENT IF IT WOULD WORK
+
+
+<h2> <%= @student["name"] %> <%= @student["age"] %><%= @student["spirit_animal"] %><%= @student["squad_i"] %></h2>
+  
+
+
+  <a href="/squads"> Return </a> 
+
+
+
+  get '/squads/:squad_id/students' do
+  students = []
+    @conn.exec("SELECT * FROM students ORDER BY student_id ASC") do |result|
+      result.each do |student|
+        students << student
+      end
+    end
+    @students = students
+    erb :indexstudents
+end

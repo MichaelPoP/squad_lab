@@ -9,16 +9,17 @@
 </head>
 
 
-<body class="container">
-  <h1> THE SQUADS </h1>
+<body class="container squadback">
+  <h1 class="title"> The Squads </h1>
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Row</th>
         <th>Name</th>
         <th>Mascot</th>
-        <th>...</th>
-        <th>...</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
           <td><%= squad["id"]  %></td>
           <td><%= squad["name"] %></td> 
           <td><%= squad["mascot"] %></td>
+          <td><a href="/squads/<%= squad["id"] %>/students">Students</a></td>
           <td><a href="/squads/<%= squad["id"] %>">Show More Info</a></td>
           <td><a href="/squads/<%= squad["id"] %>/edit">Edit Squad</a></td>
         </tr>
@@ -36,9 +38,13 @@
     </tbody>
   
   </table> 
-  <a href="/squads/new"> Add New Squad</a> 
+  <a href="/squads/new"> <div class="addbutton">
+  Add New Squad
+  </div></a> 
   <hr>
-  <a href="/students"> Show All Students</a>
+  <a href="/students"><div class="showall">
+   Show All Students
+  </div></a>
 </body>
 </html>
 

@@ -9,18 +9,19 @@
 </head>
 
 
-<body class="container">
-  <h2> <%= @squad["name"] %> </h2>
+<body class="container squadback">
+  <h2 class="title"> <%= @squad["name"] %> </h2>
 
 
-  <h3> The Following Students Are in This Squad: </h3>
+  <h3 class="title"> The Following Students Are in This Squad: </h3>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Row</th>
+        <th>ID</th>
         <th>Name</th>
         <th>Age</th>
-        <th>Spirit Animal</th>
+        
+        
         
       </tr>
     </thead>
@@ -31,7 +32,8 @@
           <td><%= student["student_id"] %></td>
           <td><%= student["name"] %></td> 
           <td><%= student["age"] %></td>
-          <td><%= student["spirit_animal"]  %></td>
+          
+
           
         </tr>
       <% end %>
@@ -40,7 +42,9 @@
   
   </table>  
 
-
-  <a href="/squads"> Return </a> 
+  <!-- <a href="/squads/:squad_id/students/new"> Add New Student To Squad</a> -->
+  <a href="/squads"><div class="addbutton">
+  Return 
+  </div></a> 
 </body>
 </html>

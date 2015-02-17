@@ -13,23 +13,29 @@
 
   <h1> ADD NEW STUDENT! </h1>
 
-  <form action="/squads" class="form-inline" method="POST">
+  <form action="/squads/<%= @squad["id"] %>/students" class="form-inline" method="POST">
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" name="name" class="form-control" id="studentname" placeholder="ferris bueller">
     </div>
+
     <div class="form-group">
       <label for="age">Age</label>
       <input type="text" name="age" class="form-control" id="studentage" placeholder="33">
     </div>
+
     <div class="form-group">
-      <label for="spiritanimal">Spirit Animal</label>
-      <input type="text" name="spiritanimal" class="form-control" id="spiritanimal" placeholder="eagle">
+      <label for="spirit_animal">Spirit Animal</label>
+      <input type="text" name="spirit_animal" class="form-control" id="spiritanimal" placeholder="eagle">
     </div>
+
+    <fieldset disabled>
     <div class="form-group">
-      <label for="squadid">Squad Id</label>
-      <input type="text" name="squadid" class="form-control" id="squadid" placeholder="5">
+      <label for="disabledTextInput">SQUAD ID</label>
+      <input type="number" id="disabledTextInput" class="form-control" value="<%= @squad["id"] %>">
     </div>
+    </fieldset>
+
     <button type="submit" value="Add" class="btn btn-default">Add Student</button>
   </form>
 

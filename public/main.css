@@ -1,0 +1,75 @@
+/*----------------     SQUAD PAGES    -----------------*/
+
+.squadback {
+  background: #249651;
+}
+.title {
+  font-family: helvetica;
+  font-variant: small-caps;
+  text-shadow: 1px -1px 2px white;
+}
+th {
+  font-family: helvetica;
+  font-size: 22px;
+  font-variant: small-caps;
+}
+a {
+  color:white !important;
+  text-shadow: 1px -1px 6px black; 
+}
+a:hover {
+  color:white !important;
+  text-shadow: 1px -1px 2px blue;
+}
+td {
+  font-family: helvetica;
+  font-size: 17px;
+}
+.addbutton {
+  background: rgba(111, 111, 111, .7);
+  border: 5px outset gray;
+  border-radius: 10px;
+  padding:3px;
+  width: 200px;
+  letter-spacing: 4px;
+  font-size: 18px;
+}
+.addbutton:hover {
+  background: rgba(111, 111, 111, .7);
+  border: 5px outset blue;
+  border-radius: 10px;
+  padding:2px;
+  width: 200px;
+  box-shadow:1px -1px 5px blue;
+}
+.showall {
+  background: rgba(111, 111, 111, .7);
+  margin-bottom: 500px;
+  border:4px outset gray;
+  border-radius: 10px;
+  padding:3px;
+  width:100px;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+.showall:hover {
+  background: rgba(111, 111, 111, .7);
+  margin-bottom: 500px;
+  border:4px outset blue;
+  border-radius: 10px;
+  padding:2px;
+  width:100px;
+  letter-spacing: 2px;
+  font-size: 14px;
+  box-shadow:1px -1px 5px blue;
+}
+
+
+
+
+
+
+
+
+
+

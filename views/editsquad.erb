@@ -7,9 +7,9 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 </head>
-<body class="container">
+<body class="container squadback">
 
-  <h1> EDIT OR DELETE A SQUAD </h1>
+  <h1 class="title"> EdiT oR DEleTe A SquaD </h1>
 
   <form action="/squads/<%= @squad["id"] %>" class="form-inline" method="POST">
 
@@ -40,8 +40,9 @@
     <button type="submit" name="delete" value="Delete" class="btn btn-default">Delete Squad</button>
 
   </form>
-  <a href="/squads/:squad_id/students/new"> Add a Student To This Squad</a>
-
+  <div class="addbutton"
+  <a href="/squads/<%= @squad["id"] %>/students/new"> Add New Student To Squad</a>
+  </div>
   
 </body>
 </html>
